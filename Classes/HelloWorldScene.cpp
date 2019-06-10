@@ -101,21 +101,44 @@ bool HelloWorld::init()
         this->addChild(label, 1);
     }
 
-    // add "HelloWorld" splash screen"
-    auto sprite = Sprite::create("HelloWorld.png");
-    if (sprite == nullptr)
-    {
-        problemLoading("'HelloWorld.png'");
-    }
-    else
-    {
-        // position the sprite on the center of the screen
-        sprite->setPosition(Vec2(visibleSize.width/2 + origin.x, visibleSize.height/2 + origin.y));
+	// テクスチャファイル名を指定して、スプライトを作成
+	sprite = Sprite::create("EXVS.png");
+	// シーングラフにつなぐ
+	this->addChild(sprite);
+	//表示座標指定
+	sprite->setPosition(Vec2(1280, 720));
+	//回転角を指定
+	sprite->setRotation(0.0f);
+	//拡縮を指定
+	sprite->setScale(0.5f);
+	//非表示にする
+	sprite->setVisible(true);
+	//色合いを設定する
+	sprite->setColor(Color3B(0xff, 0xff, 0xff));
+	//不透明度を設定
+	sprite->setOpacity(0xff);
 
-        // add the sprite as a child to this layer
-        this->addChild(sprite, 0);
-    }
+	//update関数を有効にする
+	this->scheduleUpdate();
+
     return true;
+}
+
+void HelloWorld::update(float delta)
+{
+	//ここに毎フレーム処理を書く
+	//スプライトの現在座標を取得
+	Vec2 pos = sprite->getPosition();
+	GLubyte opa = sprite->getOpacity();
+	//座標を移動させる
+	pos += Vec2(-1.0f,0.0f);
+	opa += GLubyte(-1);
+	if (opa == 255) {
+		opa +=GLubyte(1);
+	}
+	//移動後の座標を反映
+	sprite->setPosition(pos);
+	sprite->setOpacity(opa);
 }
 
 
@@ -131,3 +154,4 @@ void HelloWorld::menuCloseCallback(Ref* pSender)
 
 
 }
+
