@@ -105,20 +105,67 @@ bool HelloWorld::init()
 	sprite = Sprite::create("EXVS.png");
 	// シーングラフにつなぐ
 	this->addChild(sprite);
+
 	//表示座標指定
-	sprite->setPosition(Vec2(1280, 720));
-	//回転角を指定
-	sprite->setRotation(0.0f);
-	//拡縮を指定
+	sprite->setPosition(Vec2(visibleSize.width / 2, visibleSize.height / 2));
+	////拡縮を指定
 	sprite->setScale(0.5f);
-	//非表示にする
-	sprite->setVisible(true);
-	//色合いを設定する
-	sprite->setColor(Color3B(0xff, 0xff, 0xff));
-	//不透明度を設定
-	sprite->setOpacity(0xff);
+
+	//MoveBy*action1 = MoveBy::create(1.0, Vec2(200, 100));
+	//ScaleBy*action1 = ScaleBy::create(1.0f, 5.0f);
+	//JumpTo*action1 = JumpTo::create(1.0, Vec2(200, 100), 500.0f,2);
+
+	//ベジェ曲線
+	/*ccBezierConfig conf;
+	conf.controlPoint_1 = Vec2(800, 700);
+	conf.controlPoint_2 = Vec2(1000, 700);
+	conf.endPosition = Vec2(1000, 360);
+	BezierTo*action1 = BezierTo::create(2.0f, ccBezierConfig(conf));
+	sprite->runAction(action1);*/
+
+	sprite->setOpacity(0);
+	FadeIn*action1 = FadeIn::create(1.0f);
+	sprite->runAction(action1);
+
+	////回転角を指定
+	//sprite->setRotation(0.0f);
+
+	//sprite2->setScale(5.0f);
+	////非表示にする
+	//sprite->setVisible(true);
+	////色合いを設定する
+	////sprite->setColor(Color3B(0xff, 0xff, 0xff));
+	////不透明度を設定
+	//sprite->setOpacity(255);
+	//sprite2->setOpacity(0);
+	////画像の基準点（アンカーポイント）を設定
+	//sprite->setAnchorPoint(Vec2(0, 1));
+	//sprite2->setAnchorPoint(Vec2(0, 1));
+
+	//反転
+	//sprite->setFlippedX(true);
+
+	//色
+	//sprite->setColor(Color3B(255, 0, 0));
+	//sprite->setColor(Color3B(0, 0, 255));
+
+	//ずらしと一部切り取り
+	/*sprite->setTextureRect(Rect(0, 64, 32, 32));
+	sprite2->setTextureRect(Rect(0, 64, 32, 32));*/
 
 	//update関数を有効にする
+	//this->scheduleUpdate();
+
+	//sprite->getTexture()->setAliasTexParameters();
+	//sprite2->getTexture()->setAliasTexParameters();
+
+	//state = 0;
+
+	//blue = 0;
+
+	//op1 = 255.0;
+	//op2 = 0;
+
 	this->scheduleUpdate();
 
     return true;
@@ -127,18 +174,53 @@ bool HelloWorld::init()
 void HelloWorld::update(float delta)
 {
 	//ここに毎フレーム処理を書く
-	//スプライトの現在座標を取得
-	Vec2 pos = sprite->getPosition();
-	GLubyte opa = sprite->getOpacity();
-	//座標を移動させる
-	pos += Vec2(-1.0f,0.0f);
-	opa += GLubyte(-1);
-	if (opa == 255) {
-		opa +=GLubyte(1);
-	}
-	//移動後の座標を反映
-	sprite->setPosition(pos);
-	sprite->setOpacity(opa);
+
+	//回転
+	//float rot = sprite->getRotation();
+	//rot += float(-10.0f);
+	//sprite->setRotation(rot);
+
+	//変色
+	//blue += 255.0f/180.0f;
+	//if (blue > 255.0f) {
+	//	blue = 255.0f;
+	//}
+	//sprite->setColor(Color3B(255.0f - blue, 0, blue));
+
+
+	//フェード
+	//GLubyte op1 = sprite->getOpacity();
+	//GLubyte op2 = sprite2->getOpacity();
+
+	//op1 += float(-1);
+	//op2 += float(1);
+	//if (op2 > 255.0f) {
+	//	op1 = 0;
+	//	op2 = 255.0f;
+	//}
+	//sprite->setOpacity(op1);
+	//sprite2->setOpacity(op2);
+
+	//移動
+	//Vec2 pos = sprite->getPosition();
+	//switch (state) {
+	//case 0:
+	//	pos = sprite->getPosition();
+	//	pos += Vec2(5.0f, 0);
+	//	sprite->setPosition(pos);
+	//	if (pos.x>=-100 ) {
+	//		state = 1;
+	//	}
+	//	break;
+	//case 1:
+	//	pos = sprite->getPosition();
+	//	pos += Vec2(-5.0f, 0);
+	//	sprite->setPosition(pos);
+	//	if (pos.x <= 100) {
+	//		state = 0;
+	//	}
+	//	break;
+	//}
 }
 
 

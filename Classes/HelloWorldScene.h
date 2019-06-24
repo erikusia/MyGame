@@ -37,6 +37,13 @@ public:
 	void update(float delta)override;
 
 	cocos2d::Sprite*sprite;
+	cocos2d::Sprite*sprite2;
+
+	//ê¬
+	//float blue;
+	//float op1;
+	//float op2;
+	//int state;
     
     // a selector callback
     void menuCloseCallback(cocos2d::Ref* pSender);
