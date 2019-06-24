@@ -25,6 +25,7 @@
 #include "HelloWorldScene.h"
 #include "SimpleAudioEngine.h"
 
+using namespace std;
 USING_NS_CC;
 
 Scene* HelloWorld::createScene()
@@ -42,76 +43,116 @@ static void problemLoading(const char* filename)
 // on "init" you need to initialize your instance
 bool HelloWorld::init()
 {
-    //////////////////////////////
-    // 1. super init first
-    if ( !Scene::init() )
-    {
-        return false;
-    }
+	//////////////////////////////
+	// 1. super init first
+	if (!Scene::init())
+	{
+		return false;
+	}
 
-    auto visibleSize = Director::getInstance()->getVisibleSize();
-    Vec2 origin = Director::getInstance()->getVisibleOrigin();
+	auto visibleSize = Director::getInstance()->getVisibleSize();
+	Vec2 origin = Director::getInstance()->getVisibleOrigin();
 
-    /////////////////////////////
-    // 2. add a menu item with "X" image, which is clicked to quit the program
-    //    you may modify it.
+	/////////////////////////////
+	// 2. add a menu item with "X" image, which is clicked to quit the program
+	//    you may modify it.
 
-    // add a "close" icon to exit the progress. it's an autorelease object
-    auto closeItem = MenuItemImage::create(
-                                           "CloseNormal.png",
-                                           "CloseSelected.png",
-                                           CC_CALLBACK_1(HelloWorld::menuCloseCallback, this));
+	// add a "close" icon to exit the progress. it's an autorelease object
+	auto closeItem = MenuItemImage::create(
+		"CloseNormal.png",
+		"CloseSelected.png",
+		CC_CALLBACK_1(HelloWorld::menuCloseCallback, this));
 
-    if (closeItem == nullptr ||
-        closeItem->getContentSize().width <= 0 ||
-        closeItem->getContentSize().height <= 0)
-    {
-        problemLoading("'CloseNormal.png' and 'CloseSelected.png'");
-    }
-    else
-    {
-        float x = origin.x + visibleSize.width - closeItem->getContentSize().width/2;
-        float y = origin.y + closeItem->getContentSize().height/2;
-        closeItem->setPosition(Vec2(x,y));
-    }
+	if (closeItem == nullptr ||
+		closeItem->getContentSize().width <= 0 ||
+		closeItem->getContentSize().height <= 0)
+	{
+		problemLoading("'CloseNormal.png' and 'CloseSelected.png'");
+	}
+	else
+	{
+		float x = origin.x + visibleSize.width - closeItem->getContentSize().width / 2;
+		float y = origin.y + closeItem->getContentSize().height / 2;
+		closeItem->setPosition(Vec2(x, y));
+	}
 
-    // create menu, it's an autorelease object
-    auto menu = Menu::create(closeItem, NULL);
-    menu->setPosition(Vec2::ZERO);
-    this->addChild(menu, 1);
+	// create menu, it's an autorelease object
+	auto menu = Menu::create(closeItem, NULL);
+	menu->setPosition(Vec2::ZERO);
+	this->addChild(menu, 1);
 
-    /////////////////////////////
-    // 3. add your codes below...
+	/////////////////////////////
+	// 3. add your codes below...
 
-    // add a label shows "Hello World"
-    // create and initialize a label
+	// add a label shows "Hello World"
+	// create and initialize a label
 
-    auto label = Label::createWithTTF("Hello World", "fonts/Marker Felt.ttf", 24);
-    if (label == nullptr)
-    {
-        problemLoading("'fonts/Marker Felt.ttf'");
-    }
-    else
-    {
-        // position the label on the center of the screen
-        label->setPosition(Vec2(origin.x + visibleSize.width/2,
-                                origin.y + visibleSize.height - label->getContentSize().height));
+	auto label = Label::createWithTTF("Hello World", "fonts/Marker Felt.ttf", 24);
+	if (label == nullptr)
+	{
+		problemLoading("'fonts/Marker Felt.ttf'");
+	}
+	else
+	{
+		// position the label on the center of the screen
+		label->setPosition(Vec2(origin.x + visibleSize.width / 2,
+			origin.y + visibleSize.height - label->getContentSize().height));
 
-        // add the label as a child to this layer
-        this->addChild(label, 1);
-    }
+		// add the label as a child to this layer
+		this->addChild(label, 1);
+	}
 
-	// テクスチャファイル名を指定して、スプライトを作成
-	sprite = Sprite::create("EXVS.png");
-	// シーングラフにつなぐ
-	this->addChild(sprite);
+	//乱数の初期化
+	//Ranom r=new Random();
+	srand(time(nullptr));
 
-	//表示座標指定
-	sprite->setPosition(Vec2(visibleSize.width / 2, visibleSize.height / 2));
-	////拡縮を指定
-	sprite->setScale(0.5f);
+	for (int i = 0; i < 5; i++)
+	{
+		//テクスチャファイル名を指定して、スプライトを作成
+		sprite[i] = Sprite::create("EXVS.png");
+		this->addChild(sprite[i]);
+		//表示座標指定
+		sprite[i]->setPosition(Vec2(200*i, visibleSize.height / 2));
+		//拡縮を指定
+		sprite[i]->setScale(0.5f);
 
-	//MoveBy*action1 = MoveBy::create(1.0, Vec2(200, 100));
+		float mx,my;
+		mx = (float)rand()/RAND_MAX*300;
+		my = (float)rand()/RAND_MAX*300;
+		//action1を生成
+		MoveBy*action1 = MoveBy::create(1.0, Vec2(mx, my));
+		sprite[i]->runAction(action1);
+	}
+
+	//sprite = Sprite::create("EXVS.png");
+	////シーングラフにつなぐ
+	//this->addChild(sprite);
+	////表示座標指定
+	//sprite->setPosition(Vec2(visibleSize.width / 2, visibleSize.height / 2));
+	//////拡縮を指定
+	//sprite->setScale(0.5f);
+	////action1を生成
+	//MoveBy*action1 = MoveBy::create(1.0, Vec2(300, 200));
+	//sprite->runAction(action1);
+	//sprite2->runAction(action1->clone());
+
+	//sprite2 = Sprite::create("hakokon.png");
+	////シーングラフにつなぐ
+	//this->addChild(sprite2);
+	////表示座標指定
+	//sprite2->setPosition(Vec2(300, visibleSize.height / 2));
+	//////拡縮を指定
+	//sprite2->setScale(0.5f);
+	//action2を生成
+	//MoveBy*action2 = MoveBy::create(1.0, Vec2(300, 200));
+	//sprite2->runAction(action2);
+
+
+
+
+	//EaseElasticIn*action2 = EaseElasticIn::create(action1,1.0f);
+	//EaseOut*action2 = EaseOut::create(action1, 5.0f);
+	//EaseOut*action3 = EaseOut::create(action2, 5.0f);
 	//ScaleBy*action1 = ScaleBy::create(1.0f, 5.0f);
 	//JumpTo*action1 = JumpTo::create(1.0, Vec2(200, 100), 500.0f,2);
 
@@ -123,9 +164,10 @@ bool HelloWorld::init()
 	BezierTo*action1 = BezierTo::create(2.0f, ccBezierConfig(conf));
 	sprite->runAction(action1);*/
 
-	sprite->setOpacity(0);
-	FadeIn*action1 = FadeIn::create(1.0f);
-	sprite->runAction(action1);
+	//sprite->setOpacity(0);
+	//FadeIn*action1 = FadeIn::create(1.0f);
+
+	//Blink*action1 = Blink::create(15.0f,10);
 
 	////回転角を指定
 	//sprite->setRotation(0.0f);

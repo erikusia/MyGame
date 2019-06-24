@@ -36,8 +36,9 @@ public:
 
 	void update(float delta)override;
 
-	cocos2d::Sprite*sprite;
-	cocos2d::Sprite*sprite2;
+	//cocos2d::Sprite*sprite;
+	//cocos2d::Sprite*sprite2;
+	cocos2d::Sprite*sprite[100];
 
 	//ê¬
 	//float blue;
