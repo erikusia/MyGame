@@ -101,36 +101,33 @@ bool HelloWorld::init()
 		// add the label as a child to this layer
 		this->addChild(label, 1);
 	}
+	Sprite*spr = Sprite::create("HelloWorld.png");
 
-	//乱数の初期化
-	//Ranom r=new Random();
-	srand(time(nullptr));
+	MoveTo*moveTo = MoveTo::create(2.0, Vec2(640.0f, 540.0f));
+	DelayTime*delay = DelayTime::create(1.0f);
+	RemoveSelf*remove = RemoveSelf::create();
+	Sequence*seq = Sequence::create(moveTo, delay, remove, nullptr);
+	spr->runAction(seq);
+	this->addChild(spr);
 
-	for (int i = 0; i < 10; i++)
-	{
-		//テクスチャファイル名を指定して、スプライトを作成
-		sprite[i] = Sprite::create("EXVS.png");
-		this->addChild(sprite[i]);
-		//表示座標指定
+	//JumpBy*action1 = JumpBy::create(0.5f, Vec2(100.0f, 100.0f),100.0f,1);
+	//MoveTo*moveTo = MoveTo::create(2.0, Vec2(640.0f, 540.0f));
+	//DelayTime*delay = DelayTime::create(1.0f);
+	//Hide*hide = Hide::create();
+	//Sequence*seq = Sequence::create(moveTo,delay, hide, nullptr);
+	//Repeat*rep = Repeat::create(seq,5);
 
-		//拡縮を指定
-		sprite[i]->setScale(0.3f);
-
-		float mx,my;
-		mx = (float)rand()/RAND_MAX*visibleSize.width;
-		my = (float)rand()/RAND_MAX*visibleSize.height;
-		sprite[i]->setPosition(Vec2(mx,my));
-
-
-		float x, y;
-		x = (float)rand() / RAND_MAX * visibleSize.width;
-		y = (float)rand() / RAND_MAX * visibleSize.height;
-		//action1を生成
-		MoveTo*action1 = MoveTo::create(1.0, Vec2(x, y));
-		//JumpBy*action1 = JumpBy::create(1.0f, Vec2(100,300),500.0f,2);
-		sprite[i]->runAction(action1);
-	}
-	this->scheduleUpdate();
+	////移動のアクション1を作成
+	//MoveTo*moveTo = MoveTo::create(2.0f, Vec2(600.0f, 300.0f));
+	////ジャンプのアクション2を作成
+	//JumpTo*jumpTo = JumpTo::create(1.0f, Vec2(200.0f, 200.0f), 300.0f, 2);
+	////色変え
+	//TintTo*tintTo = TintTo::create(1.0f, Color3B(255, 255, 0));
+	////同時アクションを作成
+	//Spawn*spawn = Spawn::create(tintTo, jumpTo, nullptr);
+	////アクション1,2の連続アクション3を作成
+	//Sequence*seq = Sequence::create(moveTo, spawn, nullptr);
+	//spr->runAction(rep);
 
     return true;
 }
