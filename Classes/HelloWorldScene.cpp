@@ -106,108 +106,30 @@ bool HelloWorld::init()
 	//Ranom r=new Random();
 	srand(time(nullptr));
 
-	for (int i = 0; i < 5; i++)
+	for (int i = 0; i < 10; i++)
 	{
 		//テクスチャファイル名を指定して、スプライトを作成
 		sprite[i] = Sprite::create("EXVS.png");
 		this->addChild(sprite[i]);
 		//表示座標指定
-		sprite[i]->setPosition(Vec2(200*i, visibleSize.height / 2));
+
 		//拡縮を指定
-		sprite[i]->setScale(0.5f);
+		sprite[i]->setScale(0.3f);
 
 		float mx,my;
-		mx = (float)rand()/RAND_MAX*300;
-		my = (float)rand()/RAND_MAX*300;
+		mx = (float)rand()/RAND_MAX*visibleSize.width;
+		my = (float)rand()/RAND_MAX*visibleSize.height;
+		sprite[i]->setPosition(Vec2(mx,my));
+
+
+		float x, y;
+		x = (float)rand() / RAND_MAX * visibleSize.width;
+		y = (float)rand() / RAND_MAX * visibleSize.height;
 		//action1を生成
-		MoveBy*action1 = MoveBy::create(1.0, Vec2(mx, my));
+		MoveTo*action1 = MoveTo::create(1.0, Vec2(x, y));
+		//JumpBy*action1 = JumpBy::create(1.0f, Vec2(100,300),500.0f,2);
 		sprite[i]->runAction(action1);
 	}
-
-	//sprite = Sprite::create("EXVS.png");
-	////シーングラフにつなぐ
-	//this->addChild(sprite);
-	////表示座標指定
-	//sprite->setPosition(Vec2(visibleSize.width / 2, visibleSize.height / 2));
-	//////拡縮を指定
-	//sprite->setScale(0.5f);
-	////action1を生成
-	//MoveBy*action1 = MoveBy::create(1.0, Vec2(300, 200));
-	//sprite->runAction(action1);
-	//sprite2->runAction(action1->clone());
-
-	//sprite2 = Sprite::create("hakokon.png");
-	////シーングラフにつなぐ
-	//this->addChild(sprite2);
-	////表示座標指定
-	//sprite2->setPosition(Vec2(300, visibleSize.height / 2));
-	//////拡縮を指定
-	//sprite2->setScale(0.5f);
-	//action2を生成
-	//MoveBy*action2 = MoveBy::create(1.0, Vec2(300, 200));
-	//sprite2->runAction(action2);
-
-
-
-
-	//EaseElasticIn*action2 = EaseElasticIn::create(action1,1.0f);
-	//EaseOut*action2 = EaseOut::create(action1, 5.0f);
-	//EaseOut*action3 = EaseOut::create(action2, 5.0f);
-	//ScaleBy*action1 = ScaleBy::create(1.0f, 5.0f);
-	//JumpTo*action1 = JumpTo::create(1.0, Vec2(200, 100), 500.0f,2);
-
-	//ベジェ曲線
-	/*ccBezierConfig conf;
-	conf.controlPoint_1 = Vec2(800, 700);
-	conf.controlPoint_2 = Vec2(1000, 700);
-	conf.endPosition = Vec2(1000, 360);
-	BezierTo*action1 = BezierTo::create(2.0f, ccBezierConfig(conf));
-	sprite->runAction(action1);*/
-
-	//sprite->setOpacity(0);
-	//FadeIn*action1 = FadeIn::create(1.0f);
-
-	//Blink*action1 = Blink::create(15.0f,10);
-
-	////回転角を指定
-	//sprite->setRotation(0.0f);
-
-	//sprite2->setScale(5.0f);
-	////非表示にする
-	//sprite->setVisible(true);
-	////色合いを設定する
-	////sprite->setColor(Color3B(0xff, 0xff, 0xff));
-	////不透明度を設定
-	//sprite->setOpacity(255);
-	//sprite2->setOpacity(0);
-	////画像の基準点（アンカーポイント）を設定
-	//sprite->setAnchorPoint(Vec2(0, 1));
-	//sprite2->setAnchorPoint(Vec2(0, 1));
-
-	//反転
-	//sprite->setFlippedX(true);
-
-	//色
-	//sprite->setColor(Color3B(255, 0, 0));
-	//sprite->setColor(Color3B(0, 0, 255));
-
-	//ずらしと一部切り取り
-	/*sprite->setTextureRect(Rect(0, 64, 32, 32));
-	sprite2->setTextureRect(Rect(0, 64, 32, 32));*/
-
-	//update関数を有効にする
-	//this->scheduleUpdate();
-
-	//sprite->getTexture()->setAliasTexParameters();
-	//sprite2->getTexture()->setAliasTexParameters();
-
-	//state = 0;
-
-	//blue = 0;
-
-	//op1 = 255.0;
-	//op2 = 0;
-
 	this->scheduleUpdate();
 
     return true;
@@ -216,53 +138,6 @@ bool HelloWorld::init()
 void HelloWorld::update(float delta)
 {
 	//ここに毎フレーム処理を書く
-
-	//回転
-	//float rot = sprite->getRotation();
-	//rot += float(-10.0f);
-	//sprite->setRotation(rot);
-
-	//変色
-	//blue += 255.0f/180.0f;
-	//if (blue > 255.0f) {
-	//	blue = 255.0f;
-	//}
-	//sprite->setColor(Color3B(255.0f - blue, 0, blue));
-
-
-	//フェード
-	//GLubyte op1 = sprite->getOpacity();
-	//GLubyte op2 = sprite2->getOpacity();
-
-	//op1 += float(-1);
-	//op2 += float(1);
-	//if (op2 > 255.0f) {
-	//	op1 = 0;
-	//	op2 = 255.0f;
-	//}
-	//sprite->setOpacity(op1);
-	//sprite2->setOpacity(op2);
-
-	//移動
-	//Vec2 pos = sprite->getPosition();
-	//switch (state) {
-	//case 0:
-	//	pos = sprite->getPosition();
-	//	pos += Vec2(5.0f, 0);
-	//	sprite->setPosition(pos);
-	//	if (pos.x>=-100 ) {
-	//		state = 1;
-	//	}
-	//	break;
-	//case 1:
-	//	pos = sprite->getPosition();
-	//	pos += Vec2(-5.0f, 0);
-	//	sprite->setPosition(pos);
-	//	if (pos.x <= 100) {
-	//		state = 0;
-	//	}
-	//	break;
-	//}
 }
 
 
@@ -275,7 +150,5 @@ void HelloWorld::menuCloseCallback(Ref* pSender)
 
     //EventCustom customEndEvent("game_scene_close_event");
     //_eventDispatcher->dispatchEvent(&customEndEvent);
-
-
 }
 
