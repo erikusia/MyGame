@@ -102,33 +102,21 @@ bool HelloWorld::init()
 		this->addChild(label, 1);
 	}
 	Sprite*spr = Sprite::create("HelloWorld.png");
-
-	MoveTo*moveTo = MoveTo::create(2.0, Vec2(640.0f, 540.0f));
-	DelayTime*delay = DelayTime::create(1.0f);
-	RemoveSelf*remove = RemoveSelf::create();
-	Sequence*seq = Sequence::create(moveTo, delay, remove, nullptr);
-	spr->runAction(seq);
+	spr->setPosition(Vec2(1200, 600));
+	MoveTo*moveTo1 = MoveTo::create(1.0f,Vec2(0, 600));
+	MoveTo*moveTo2 = MoveTo::create(1.0f, Vec2(0, 0));
+	MoveTo*moveTo3 = MoveTo::create(1.0, Vec2(1200, 0));
+	MoveTo*moveTo4 = MoveTo::create(1.0, Vec2(1200, 600));
+	Sequence*seq = Sequence::create(moveTo1, moveTo2, moveTo3, moveTo4, nullptr);
+	RepeatForever*rep = RepeatForever::create(seq);
+	//FadeOut*fadeOut = FadeOut::create(5.0f);
+	//FadeIn*fadeIn = FadeIn::create(5.0f);
+	//Spawn*spawn = Spawn::create(moveTo1, fadeOut,nullptr);
+	//Spawn*spawn1 = Spawn::create(moveTo2, fadeIn,nullptr);
+	//Sequence*seq = Sequence::create(spawn, spawn1, nullptr);
+	//Repeat*repeat = Repeat::create(seq, 5);
+	spr->runAction(rep);
 	this->addChild(spr);
-
-	//JumpBy*action1 = JumpBy::create(0.5f, Vec2(100.0f, 100.0f),100.0f,1);
-	//MoveTo*moveTo = MoveTo::create(2.0, Vec2(640.0f, 540.0f));
-	//DelayTime*delay = DelayTime::create(1.0f);
-	//Hide*hide = Hide::create();
-	//Sequence*seq = Sequence::create(moveTo,delay, hide, nullptr);
-	//Repeat*rep = Repeat::create(seq,5);
-
-	////移動のアクション1を作成
-	//MoveTo*moveTo = MoveTo::create(2.0f, Vec2(600.0f, 300.0f));
-	////ジャンプのアクション2を作成
-	//JumpTo*jumpTo = JumpTo::create(1.0f, Vec2(200.0f, 200.0f), 300.0f, 2);
-	////色変え
-	//TintTo*tintTo = TintTo::create(1.0f, Color3B(255, 255, 0));
-	////同時アクションを作成
-	//Spawn*spawn = Spawn::create(tintTo, jumpTo, nullptr);
-	////アクション1,2の連続アクション3を作成
-	//Sequence*seq = Sequence::create(moveTo, spawn, nullptr);
-	//spr->runAction(rep);
-
     return true;
 }
 
